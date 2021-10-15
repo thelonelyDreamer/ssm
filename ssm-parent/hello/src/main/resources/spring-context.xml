@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+    <!--
+        1. 构造器注入
+        2. set注入
+        3. p 空间注入
+        4. c 空间注入
+        5. 静态工厂注入
+        6. 动态工厂注入
+    -->
+    <!--1. 关联数据库配置文件-->
+    <context:property-placeholder location="classpath:jdbc.properties"></context:property-placeholder>
+    <!--2.连接池
+    c3p0: 自动化加载配置文件，不能自动连接
+    druid
+    dbcp：不能自动化操作
+    hikari
+    -->
+    <!-- 阿里 druid 数据库连接池 -->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
+        <!-- 数据库基本信息配置 -->
+        <property name="driverClassName" value="${jdbc.driverClass}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+
+        <!-- 最大并发连接数 -->
+        <property name="maxActive" value="${jdbc.maxActive}"/>
+
+        <!-- 初始化连接数量 -->
+        <property name="initialSize" value="${jdbc.init}"/>
+
+        <!-- 配置获取连接等待超时的时间 -->
+        <property name="maxWait" value="${jdbc.maxWait}"/>
+
+        <!-- 最小空闲连接数 -->
+        <property name="minIdle" value="${jdbc.minIdle}"/>
+    </bean>
+
+
+    <!--3.sqlSessionFactory-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"></property>
+        <property name="mapperLocations">
+            <list>
+                <value>classpath:mapper/*.xml</value>
+            </list>
+        </property>
+        <property name="typeAliasesPackage" value="com.felixwc.ssm.hello.pojo"></property>
+    </bean>
+
+    <!-- 配置mapper扫描包 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!-- 注入sqlSessionFactory -->
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
+        <property name="basePackage" value="com.felixwc.ssm.hello.mapper"></property>
+    </bean>
+
+    <!-- 扫描service 下的包-->
+    <context:component-scan base-package="com.felixwc.ssm.hello">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
+    <!-- 将我们所有业务类注入到Spring 通过配置或者注解实现 -->
+<!--        <bean id="bookServiceImpl" class="com.felixwc.ssm.book.service.impl.BookServiceImpl">
+            <property name="bookMapper" ref="bookMapper"></property>
+        </bean>-->
+
+    <!--声明式事务配置-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+    <!-- aop 事务整合 -->
+</beans>
