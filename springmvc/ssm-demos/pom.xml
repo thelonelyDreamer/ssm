@@ -11,6 +11,7 @@
     <modules>
         <module>springmvc-start</module>
         <module>springmvc-start1</module>
+        <module>hello-world</module>
     </modules>
 
     <dependencyManagement>
@@ -46,6 +47,17 @@
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-databind</artifactId>
                 <version>2.9.8</version>
+            </dependency>
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>1.2.11</version>
+            </dependency>
+            <!-- https://mvnrepository.com/artifact/org.thymeleaf/thymeleaf-spring5 -->
+            <dependency>
+                <groupId>org.thymeleaf</groupId>
+                <artifactId>thymeleaf-spring5</artifactId>
+                <version>3.0.15.RELEASE</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
