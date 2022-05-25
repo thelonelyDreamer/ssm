@@ -12,6 +12,7 @@
         <module>picture-upload</module>
         <module>param</module>
         <module>exception</module>
+        <module>config</module>
     </modules>
     <parent>
         <artifactId>spring-boot-starter-parent</artifactId>

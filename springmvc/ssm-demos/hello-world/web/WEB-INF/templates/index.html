@@ -6,6 +6,6 @@
 </head>
 <body>
     <p>欢迎</p>
-    <a th:href="@{/target}">target</a>
+    <p th:text="${#request.getParameterValues('name')}"></p>
 </body>
 </html>

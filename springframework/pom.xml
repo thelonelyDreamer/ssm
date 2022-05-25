@@ -13,6 +13,7 @@
         <module>beans</module>
         <module>mysql</module>
         <module>aop-start</module>
+        <module>bean-factory</module>
     </modules>
 
     <properties>

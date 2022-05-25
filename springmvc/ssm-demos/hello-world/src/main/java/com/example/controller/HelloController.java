@@ -2,6 +2,7 @@ package com.example.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * in order to learn java!
@@ -20,4 +21,12 @@ public class HelloController {
     public String test2(){
         return "target";
     }
+
+    @RequestMapping("/param1")
+    @ResponseBody
+    public String test3(int age){
+        System.out.println(age);
+        return "age";
+    }
+
 }
