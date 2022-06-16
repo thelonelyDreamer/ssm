@@ -13,6 +13,7 @@
         <module>param</module>
         <module>exception</module>
         <module>config</module>
+        <module>filter-interceptor</module>
     </modules>
     <parent>
         <artifactId>spring-boot-starter-parent</artifactId>
