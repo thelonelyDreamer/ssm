@@ -16,10 +16,10 @@
         where bookId=#{bookId};
     </update>
     <select id="queryBooksById" resultType="books">
-        select * from t_books
+        select * from t_book
         where bookId=${bookId};
     </select>
     <select id="queryAll" resultType="Books">
-        select * from t_book;
+        select book_id as bookId, book_name as bookName from t_book;
     </select>
 </mapper>

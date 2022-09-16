@@ -11,7 +11,8 @@
     <title>allBook</title>
 </head>
 <body>
-<c:forEach var="ss" items="${requestScope.list}" >
+<c:forEach var="ss" items="${list}" >
+    <h1>${list.size()}</h1>
     <h2> ${ss.bookName}</h2>
 </c:forEach>
 </body>
